@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Euro Denomination Calculator</h1>
+
+  <app-denomination-calculator
+    [loading]="loading"
+    [result]="result"
+    [oldAmount]="oldAmount"
+    (calculate)="onCalculate($event)">
+  </app-denomination-calculator>
+</div>
