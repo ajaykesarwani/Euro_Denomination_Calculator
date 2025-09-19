@@ -1,18 +1,24 @@
 services:
   - type: web
-    name: euro-denomination-calculator-backend
+    name: euro-denomination-backend
     env: docker
     dockerfilePath: ./euro-denomination-calculator/backend/denomination/Dockerfile
     plan: free
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: production
+      - key: SERVER_PORT
+        value: 8080
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://euro-denomination-frontend.onrender.com
 
   - type: web
-    name: euro-denomination-calculator-frontend
+    name: euro-denomination-frontend
     env: docker
     dockerfilePath: ./euro-denomination-calculator/frontend/euro-denomination-frontend/Dockerfile
     plan: free
     envVars:
       - key: API_URL
-        value: https://euro-denomination-calculator-backend.onrender.com
+        value: https://euro-denomination-backend.onrender.com
+      - key: NGINX_PORT
+        value: 80
