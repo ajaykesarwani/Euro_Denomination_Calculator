@@ -13,7 +13,6 @@ services:
     env: docker
     dockerfilePath: ./frontend/euro-denomination-frontend/Dockerfile
     plan: free
-    routes:
-      - type: rewrite
-        source: /api/*
-        destination: https://euro-denomination-backend.onrender.com/api/$1
+    envVars:
+      - key: API_URL
+        value: https://euro-denomination-backend.onrender.com
