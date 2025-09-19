@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: euro-denomination-backend
+    name: euro-denomination-calculator-backend
     env: docker
     dockerfilePath: ./euro-denomination-calculator/backend/denomination/Dockerfile
     plan: free
@@ -9,10 +9,10 @@ services:
         value: production
 
   - type: web
-    name: euro-denomination-frontend
+    name: euro-denomination-calculator-frontend
     env: docker
     dockerfilePath: ./euro-denomination-calculator/frontend/euro-denomination-frontend/Dockerfile
     plan: free
     envVars:
       - key: API_URL
-        value: https://euro-denomination-backend.onrender.com
+        value: https://euro-denomination-calculator-backend.onrender.com
