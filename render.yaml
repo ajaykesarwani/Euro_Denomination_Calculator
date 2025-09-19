@@ -1,9 +1,9 @@
 services:
   - type: web
     name: euro-denomination-backend
+    env: docker
+    dockerfilePath: ./euro-denomination-calculator/backend/denomination/Dockerfile
     plan: free
-    buildCommand: cd euro-denomination-calculator/backend/denomination && mvn clean package -DskipTests
-    startCommand: cd euro-denomination-calculator/backend/denomination && java -jar target/*.jar
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: production
@@ -12,9 +12,9 @@ services:
 
   - type: web
     name: euro-denomination-frontend
+    env: docker
+    dockerfilePath: ./euro-denomination-calculator/frontend/euro-denomination-frontend/Dockerfile
     plan: free
-    buildCommand: cd euro-denomination-calculator/frontend/euro-denomination-frontend && npm install && npm run build -- --configuration production
-    staticPublishPath: ./euro-denomination-calculator/frontend/euro-denomination-frontend/dist/euro-denomination-frontend/browser
     envVars:
       - key: API_URL
         value: https://euro-denomination-backend.onrender.com
