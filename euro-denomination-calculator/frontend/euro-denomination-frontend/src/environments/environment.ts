@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
   //apiUrl: 'http://localhost:8080/api'
-  apiUrl: 'https://euro-denomination-backend.onrender.com'
+  apiUrl: 'https://euro-denomination-backend.onrender.com/api'
 };
+
 
 
