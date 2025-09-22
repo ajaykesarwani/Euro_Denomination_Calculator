@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyDouble;
@@ -124,5 +125,23 @@ class DenominationControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Backend is running", response.getBody());
+    }
+    @Test
+    void testGetAvailableDenominations() {
+        try {
+            var field = DenominationController.class.getDeclaredField("availableDenominations");
+            field.setAccessible(true);
+            field.set(denominationController, List.of(200.0, 100.0, 50.0, 20.0, 10.0, 5.0, 2.0, 1.0, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01));
+        } catch (Exception e) {
+            fail("Failed to set availableDenominations field");
+        }
+
+        ResponseEntity<List<String>> response = denominationController.getAvailableDenominations();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(14, response.getBody().size());
+        assertEquals("200.00€", response.getBody().get(0));
+        assertEquals("0.01€", response.getBody().get(13));
     }
 }

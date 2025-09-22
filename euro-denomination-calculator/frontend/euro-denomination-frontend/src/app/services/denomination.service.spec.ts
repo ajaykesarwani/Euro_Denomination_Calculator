@@ -3,6 +3,9 @@ import { DenominationService } from './denomination.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
+// Unit tests for DenominationService
+// Tests currency denomination calculations and edge cases
+
 describe('DenominationService', () => {
   let service: DenominationService;
 
@@ -81,4 +84,25 @@ describe('DenominationService', () => {
       expect(result.changes!['5.00']).toBe(-1);
     });
   });
+
+  // Case when previousAmount is null/0
+   describe('calculate edge cases', () => {
+     it('should not include changes when previousAmount is null', () => {
+       // Tests that no change calculation is performed when there's no previous amount
+       const result = service.calculateFrontend(100, null);
+
+       expect(result.amount).toBe(100);
+       expect(result.breakdown).toBeDefined();
+       expect(result.changes).toBeUndefined(); // No changes object when no previous amount
+     });
+
+     it('should include changes when previousAmount is 0', () => {
+       const result = service.calculateFrontend(100, 0);
+
+       expect(result.amount).toBe(100);
+       expect(result.breakdown).toBeDefined();
+       expect(result.changes).toBeDefined(); // Changes should be calculated even for 0
+     });
+   });
+
 });

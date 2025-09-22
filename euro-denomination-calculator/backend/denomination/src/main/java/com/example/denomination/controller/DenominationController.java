@@ -7,6 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -16,6 +20,9 @@ public class DenominationController {
 
     private static final Logger logger = LoggerFactory.getLogger(DenominationController.class);
     private final DenominationService denominationService;
+
+    @Value("${denomination.values}")
+    private List<Double> availableDenominations;
 
     //Calculate denominations for a given amount and optionally compare with previous amount
     @PostMapping("/calculate")
@@ -56,5 +63,16 @@ public class DenominationController {
 
         logger.debug("Health check endpoint called");
         return ResponseEntity.ok("Backend is running");
+    }
+    //Return supported denominations
+    @GetMapping("/denominations")
+    public ResponseEntity<List<String>> getAvailableDenominations() {
+        logger.debug("Return supported denominations");
+
+        List<String> formattedDenominations = availableDenominations.stream()
+                .map(amount -> String.format("%.2f€", amount))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(formattedDenominations);
     }
 }
