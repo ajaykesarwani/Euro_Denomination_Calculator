@@ -14,7 +14,7 @@ A complete full-stack application for calculating Euro currency denominations wi
 ### For Manual Installation:
 - Java 17+
 - Maven 3.6+
-- Node.js 18+
+- Node.js 18+ 
 - npm 8+
 - Angular CLI 18+
 
